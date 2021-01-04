@@ -58,7 +58,14 @@ def serch_keywords(id_list, keywords_dict):
         _url = a.get('href')
         url = 'https://arxiv.org'+_url
 
-        response = requests.get(url)
+        try:
+            response = requests.get(url)
+        except Exception as e:
+            # とりあえず全部キャッチしてみる
+            print(f'exception: {e}')
+            print(f'url: {url}')
+            continue
+
         html = response.text
 
         bs = BeautifulSoup(html)
