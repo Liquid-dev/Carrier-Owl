@@ -3,15 +3,18 @@ subject: 'cs'
 
 # 検索キーワード
 keywords:
-        resnet: 1
+        anti spoofing: 5
+        anti-spoofing: 5
+        3d mask: 5
+        face mask: 5
+        face recognition: 4
         spoof: 4
         spoofing: 4
-        anti spoofing: 5
         facial landmark: 4
         landmark: 3
-        virtual reality: 1
         deep fake: 2
+        virtual reality: 1
+        resnet: 1
         stylegan: 1
         style gan: 1
-        3d mask: 5
-        face recognition: 4
+        anomaly detection: 1
