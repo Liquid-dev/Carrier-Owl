@@ -3,6 +3,16 @@ subject: 'cs'
 
 # 検索キーワード
 keywords:
-        kaggle: 3
-        resnet: 3
+        kaggle: 1
+        resnet: 1
         anomaly detection: 1
+        annotation: 2
+        spoof: 4
+        spoofing: 4
+        anti spoofing: 5
+        facial landmark: 4
+        landmark: 3
+        virtual reality: 1
+        deep fake: 2
+        stylegan: 1 # nvidiaの実在しない顔作成DNN
+        style gan: 1
