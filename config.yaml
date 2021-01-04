@@ -3,10 +3,7 @@ subject: 'cs'
 
 # 検索キーワード
 keywords:
-        kaggle: 1
         resnet: 1
-        anomaly detection: 1
-        annotation: 2
         spoof: 4
         spoofing: 4
         anti spoofing: 5
@@ -16,5 +13,5 @@ keywords:
         deep fake: 2
         stylegan: 1
         style gan: 1
-        3d mask: 4
+        3d mask: 5
         face recognition: 4
