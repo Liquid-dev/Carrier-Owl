@@ -52,6 +52,7 @@ def serch_keywords(id_list, keywords_dict):
     abstracts = []
     words = []
     scores = []
+    print(len(id_list))
     for id_ in progress_bar(id_list):
         a = id_.find('a')
         _url = a.get('href')
@@ -61,6 +62,11 @@ def serch_keywords(id_list, keywords_dict):
         html = response.text
 
         bs = BeautifulSoup(html)
+
+        if bs is None:
+            print("skip this url:", url)
+            continue
+
         title = bs.find('meta', attrs={'property': 'og:title'})['content']
         abstract = bs.find(
                 'meta',
