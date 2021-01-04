@@ -16,3 +16,5 @@ keywords:
         deep fake: 2
         stylegan: 1 # nvidiaの実在しない顔作成DNN
         style gan: 1
+        3d mask: 4
+        face recognition: 4
