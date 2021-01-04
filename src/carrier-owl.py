@@ -22,7 +22,9 @@ def get_articles_info(subject):
     weekday_dict = {0: 'Mon', 1: 'Tue', 2: 'Wed', 3: 'Thu',
                   4: 'Fri', 5: 'Sat', 6: 'Sun'}
     url = f'https://arxiv.org/list/{subject}/pastweek?show=100000'
-    response = requests.get(url)
+    # exceptionでプログラムには落ちてもらう retryはあとで考える
+    response = requests.get(url, timeout=5.0)
+
     html = response.text
     year = datetime.date.today().year
 
@@ -59,7 +61,7 @@ def serch_keywords(id_list, keywords_dict):
         url = 'https://arxiv.org'+_url
 
         try:
-            response = requests.get(url)
+            response = requests.get(url, timeout=5.0)
         except Exception as e:
             # とりあえず全部キャッチしてみる
             print(f'exception: {e}')
