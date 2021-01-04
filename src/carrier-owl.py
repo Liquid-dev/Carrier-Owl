@@ -1,3 +1,4 @@
+from requests import exceptions
 import chromedriver_binary   # これは必ず入れる
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -76,10 +77,15 @@ def serch_keywords(id_list, keywords_dict):
             print("skip this url:", url)
             continue
 
-        title = bs.find('meta', attrs={'property': 'og:title'})['content']
-        abstract = bs.find(
-                'meta',
-                attrs={'property': 'og:description'})['content']
+        try:
+            title = bs.find('meta', attrs={'property': 'og:title'})['content']
+            abstract = bs.find(
+                    'meta',
+                    attrs={'property': 'og:description'})['content']
+        except:
+            print('meta data read error')
+            print(f'url: {url}')
+            continue
 
         sum_score = 0
         hit_kwd_list = []
