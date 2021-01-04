@@ -76,19 +76,10 @@ def serch_keywords(id_list, keywords_dict):
             print("skip this url:", url)
             continue
 
-        temp = bs.find('meta', attrs={'property': 'og:title'})
-        if temp is None:
-            print("title not found")
-            continue
-        title = temp['content']
-
-        temp = bs.find(
+        title = bs.find('meta', attrs={'property': 'og:title'})['content']
+        abstract = bs.find(
                 'meta',
                 attrs={'property': 'og:description'})['content']
-        if temp is None:
-            print("description not found")
-            continue
-        abstract = temp['content']
 
         sum_score = 0
         hit_kwd_list = []
