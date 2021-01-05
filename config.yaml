@@ -8,6 +8,9 @@ keywords:
         3d mask: 5
         face mask: 5
         face recognition: 4
+        face detect: 4
+        face detector: 4
+        face detection: 4
         spoof: 4
         spoofing: 4
         facial landmark: 4
