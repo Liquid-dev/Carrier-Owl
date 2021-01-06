@@ -8,6 +8,7 @@ import yaml
 import datetime
 import numpy as np
 import textwrap
+import copy
 from bs4 import BeautifulSoup
 import requests
 from fastprogress import progress_bar
@@ -51,8 +52,10 @@ def get_articles_info(subject):
 
 def serch_keywords(id_list, keywords_dict):
     urls = []
-    titles = []
-    abstracts = []
+    titles_jp = []
+    abstracts_jp = []
+    titles_en = []
+    abstracts_en = []
     words = []
     scores = []
     print(len(id_list))
@@ -97,28 +100,33 @@ def serch_keywords(id_list, keywords_dict):
                 hit_kwd_list.append(word)
         if sum_score != 0:
             title_trans = get_translated_text('ja', 'en', title)
+            abstract_origin = copy.deepcopy(abstract)
             abstract = abstract.replace('\n', '')
             abstract_trans = get_translated_text('ja', 'en', abstract)
             abstract_trans = textwrap.wrap(abstract_trans, 40)  # 40行で改行
             abstract_trans = '\n'.join(abstract_trans)
 
             urls.append(url)
-            titles.append(title_trans)
-            abstracts.append(abstract_trans)
+            titles_jp.append(title_trans)
+            abstracts_jp.append(abstract_trans)
+            titles_en.append(title)
+            abstracts_en.append(abstract_origin)
             words.append(hit_kwd_list)
             scores.append(sum_score)
 
-    results = [urls, titles, abstracts, words, scores]
+    results = [urls, titles_jp, abstracts_jp, titles_en, abstracts_en, words, scores]
 
     return results
 
 
 def send2slack(results, slack):
     urls = results[0]
-    titles = results[1]
-    abstracts = results[2]
-    words = results[3]
-    scores = results[4]
+    titles_jp = results[1]
+    abstracts_jp = results[2]
+    titles_en = results[3]
+    abstracts_en = results[4]
+    words = results[5]
+    scores = results[6]
 
     # rank
     idxs_sort = np.argsort(scores)
@@ -131,14 +139,15 @@ def send2slack(results, slack):
     slack.notify(text=text)
     for i in idxs_sort:
         url = urls[i]
-        title = titles[i]
-        abstract = abstracts[i]
+        title_jp = titles_jp[i]
+        abstract_jp = abstracts_jp[i]
+        title_en = titles_en[i]
+        abstract_en = abstracts_en[i]
         word = words[i]
         score = scores[i]
 
         text_slack = f'''
-                    \n score: `{score}`\n hit keywords: `{word}`\n url: {url}\n title:    {title}\n abstract: \n \t {abstract}\n{star}
-                       '''
+                    \n score: `{score}`\n hit keywords: `{word}`\n url: {url}\n title_jp:  {title_jp}\n title_en:  {title_en}\n abstract_jp: \n \t {abstract_jp}\n abstract_en: \n \t {abstract_en}\n {star} '''
         slack.notify(text=text_slack)
 
 
