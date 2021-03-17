@@ -4,7 +4,7 @@ on:
   schedule:
     # github actions のデフォルトの time zone が UTC なので、日本時間 - 9時間 した値を書く
     # 毎日の午前9時に実行する
-    - cron:  '0 0 * * *'
+    - cron:  '0 0 * * 1,2,3,4,5'
   workflow_dispatch:
   
   push:
